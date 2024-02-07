@@ -1,0 +1,86 @@
+local player = game.Players.LocalPlayer
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "hotHub", HidePremium = false, SaveConfig = true, ConfigFolder = "hotTest"})
+
+local Tab = Window:MakeTab({
+ Name = "Player",
+ Icon = "rbxassetid://4483345998",
+ PremiumOnly = false
+})
+ 
+ local Section = Tab:AddSection({
+	Name = "Player setings"
+})
+
+OrionLib:MakeNotification({
+	Name = "HOT HUB LOAD...",
+	Content = "by Spidk4 (Arceus X)",
+	Image = "rbxassetid://4483345998",
+	Time = 6
+})
+
+Tab:AddToggle({
+	Name = "Original speed",
+	Default = false,
+	Callback = function(Value)
+		
+player.Character.Humanoid.WalkSpeed = 16
+	end    
+})
+
+Tab:AddSlider({
+	Name = "Speed",
+	Min = 16,
+	Max = 500,
+	Default = 16,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "max 500",
+	Callback = function(Value)
+	     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Original jump",
+	Default = false,
+	Callback = function(Value)
+		
+player.Character.Humanoid.JumpPower = 50
+	end    
+})
+
+Tab:AddSlider({
+	Name = "Jump",
+	Min = 50,
+	Max = 500,
+	Default = 50,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "max 500",
+	Callback = function(Value)
+	     game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
+    end    
+})
+
+Tab:AddToggle({
+	Name = "inf jump",
+	Default = false,
+	Callback = function(Value)
+local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+local InfiniteJump = CreateButton("Infinite Jump: Off", StuffFrame)
+InfiniteJump.Position = UDim2.new(0,10,0,130)
+InfiniteJump.Size = UDim2.new(0,150,0,30)
+InfiniteJump.MouseButton1Click:connect(function()
+	local state = InfiniteJump.Text:sub(string.len("Infinite Jump: ") + 1) --too lazy to count lol
+	local new = state == "Off" and "On" or state == "On" and "Off"
+	InfiniteJumpEnabled = new == "On"
+	InfiniteJump.Text = "Infinite Jump: " .. new
+end)  
+   end
+})
